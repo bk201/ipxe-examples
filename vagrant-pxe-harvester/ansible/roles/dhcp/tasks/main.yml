@@ -23,3 +23,18 @@
     src: dhcpd.conf.j2
     dest: /etc/dhcp/dhcpd.conf
   notify: restart dhcp
+
+- sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_set: true
+    state: present
+    reload: true
+
+- name: masquerade VM traffics
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    source: 192.168.0.0/24 # fix me
+    jump: MASQUERADE
+    out_interface: eth0
