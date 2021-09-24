@@ -22,3 +22,11 @@
     src: dhcpd.conf.j2
     dest: /etc/dhcp/dhcpd.conf
   notify: restart dhcp
+
+- name: masquerade VM traffics
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    source: 192.168.0.0/24 # fix me
+    jump: MASQUERADE
+    out_interface: eth0
