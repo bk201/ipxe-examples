@@ -74,35 +74,35 @@ harvester_network_config:
     # role: default, management, witness or worker
     - ip: 192.168.0.30
       mac: 02:00:00:0D:62:E2
+      mac_vlan: 52:54:00:61:0a:1a
       cpu: 8
       memory: 16384
       disk_size: 500G
-      vagrant_interface: ens5
-      mgmt_interface: ens6
+      mgmt_interface: ens5
       role: default
     - ip: 192.168.0.31
       mac: 02:00:00:35:86:92
+      mac_vlan: 52:54:00:1b:9c:b8
       cpu: 8
       memory: 16384
       disk_size: 500G
-      vagrant_interface: ens5
-      mgmt_interface: ens6
+      mgmt_interface: ens5
       role: default
     - ip: 192.168.0.32
       mac: 02:00:00:2F:F2:2A
+      mac_vlan: 52:54:00:ae:ad:80
       cpu: 8
       memory: 16384
       disk_size: 500G
-      vagrant_interface: ens5
-      mgmt_interface: ens6
+      mgmt_interface: ens5
       role: default
     - ip: 192.168.0.33
       mac: 02:00:00:A7:E6:FF
+      mac_vlan: 52:54:00:09:c8:5e
       cpu: 8
       memory: 8192
       disk_size: 500G
-      vagrant_interface: ens5
-      mgmt_interface: ens6
+      mgmt_interface: ens5
       role: default
 
 #
