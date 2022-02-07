@@ -71,6 +71,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           type: 'qcow2',
           bus: 'virtio',
           device: 'vda'
+
+        libvirt.storage :file,
+          size: '20G',
+          type: 'qcow2',
+          bus: 'scsi',
+          device: 'sda'
+
         boot_network = {'network' => 'harvester'}
         libvirt.boot 'hd'
         libvirt.boot boot_network
