@@ -1,0 +1,4 @@
+---
+worker_users:
+  Alpine: nginx
+  Debian: www-data

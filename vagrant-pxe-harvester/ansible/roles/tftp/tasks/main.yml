@@ -1,7 +1,7 @@
 ---
 - name: install tftpd-hpa
-  apt:
-    name: tftpd-hpa
+  package:
+    name: "{{ tftpd_package_names[ansible_facts['os_family']] }}"
     state: present
 
 - name: create tftp root
@@ -11,6 +11,6 @@
 
 - name: configure tftp
   template:
-    src: tftpd-hpa.j2
-    dest: /etc/default/tftpd-hpa
+    src: "{{ tftpd_conf_templates[ansible_facts['os_family']] }}"
+    dest: "{{ tftpd_conf_dests[ansible_facts['os_family']] }}"
   notify: restart tftp

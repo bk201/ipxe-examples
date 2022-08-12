@@ -1,0 +1,16 @@
+---
+tftpd_package_names:
+  Alpine: tftp-hpa
+  Debian: tftpd-hpa
+
+tftpd_conf_templates:
+  Alpine: in-tftpd.j2
+  Debian: tftpd-hpa.j2
+
+tftpd_conf_dests:
+  Alpine: /etc/conf.d/in.tftpd
+  Debian: /etc/default/tftpd-hpa
+
+tftpd_service_names:
+  Alpine: in.tftpd
+  Debian: tftpd-hpa

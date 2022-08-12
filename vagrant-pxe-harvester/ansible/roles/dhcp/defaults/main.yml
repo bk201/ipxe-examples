@@ -1,0 +1,6 @@
+---
+dhcpd_service_names:
+  Alpine: dhcpd
+  Debian: isc-dhcp-server
+
+

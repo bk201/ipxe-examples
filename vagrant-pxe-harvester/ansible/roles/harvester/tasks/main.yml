@@ -8,7 +8,7 @@
   template:
     src: "config-create.yaml.j2"
     dest: /var/www/harvester/config-create.yaml
-    owner: www-data
+    owner: "{{ worker_users[ansible_facts['os_family']] }}"
     mode: 0640
 
 # NOTE(gyee): Ansible pre-process the with_sequence variable so we have to
@@ -21,7 +21,7 @@
   template:
     src: "config-join.yaml.j2"
     dest: /var/www/harvester/config-join-{{ item }}.yaml
-    owner: www-data
+    owner: "{{ worker_users[ansible_facts['os_family']] }}"
     mode: 0640
   vars:
     node_number: "{{ item }}"
@@ -30,7 +30,7 @@
 - name: chown dir
   file:
     path: /var/www/harvester/
-    owner: www-data
+    owner: "{{ worker_users[ansible_facts['os_family']] }}"
     recurse: yes
 
 - name: create boot entry for the first node
