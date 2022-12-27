@@ -27,3 +27,5 @@
   until: auth_modes_lookup_result.status == 200
   retries: 20
   delay: 120
+  when: do_wait
+  
