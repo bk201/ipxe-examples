@@ -34,6 +34,8 @@
   until: auth_modes_lookup_result.status == 200
   retries: 20
   delay: 120
+  when: do_wait
+
 # witness
 - name: wait for witness node {{ harvester_node_ip }} to get ready
   when: harvester_node_role == "witness"
@@ -45,3 +47,4 @@
   until: calico_port_result is succeeded
   retries: 20
   delay: 120
+  when: do_wait

@@ -34,11 +34,36 @@
     retries: 10
     delay: 30
 
-  - name: boot Harvester nodes
-    include_tasks: boot_harvester_node.yml
+  - name: install Harvester nodes
+    include_tasks: install_harvester_node.yml
     vars:
       node_number: "{{ item }}"
     with_sequence: 0-{{ harvester_cluster_nodes|int - 1 }}
+
+  - name: wait all node installed and shut down
+    shell: >
+      ../wait_installed.sh
+    register: wait_installed_result
+    async: 1800
+    poll: 10
+
+  - name: display wait install result
+    debug:
+      msg: "{{ wait_installed_result.stdout }}"
+
+  - name: boot the first Harvester node
+    include_tasks: boot_harvester_node.yml
+    vars:
+      node_number: "0"
+      do_wait: true
+
+  - name: boot rest of Harvester nodes
+    include_tasks: boot_harvester_node.yml
+    vars:
+      node_number: "{{ item }}"
+      do_wait: false
+    with_sequence: 1-{{ harvester_cluster_nodes|int - 1 if harvester_cluster_nodes > 1 else 1 }}
+    when: harvester_cluster_nodes > 1
 
   - name: install Rancher {{ rancher_config.version }}
     shell: >
