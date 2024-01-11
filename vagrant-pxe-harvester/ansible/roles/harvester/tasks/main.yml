@@ -72,3 +72,8 @@
   vars:
     harvester_media_url: "{{ settings['harvester_rootfs_url'] }}"
     media_filename: "harvester-rootfs-amd64.squashfs"
+
+- name: upload helper scripts
+  copy:
+    src: wait-node.sh
+    dest: /var/www/harvester/wait-node.sh

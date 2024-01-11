@@ -40,6 +40,12 @@
       node_number: "{{ item }}"
     with_sequence: 0-{{ harvester_cluster_nodes|int - 1 }}
 
+  - name: check Harvester node role
+    include: check_node_role.yml
+    vars:
+      node_number: "{{ item }}"
+    with_sequence: 0-{{ harvester_cluster_nodes|int - 1 }}
+
   - name: install Rancher {{ rancher_config.version }}
     shell: >
       vagrant up rancher

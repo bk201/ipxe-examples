@@ -1,0 +1,8 @@
+---
+
+- name: check Witness Node
+  shell: |
+    ssh -i ../ci-key rancher@{{ harvester_first_node_ip }} curl http://{{ harvester_network_config['dhcp_server']['ip'] }}/harvester/wait-node.sh -o /tmp/wait-node.sh
+    ssh -i ../ci-key rancher@{{ harvester_first_node_ip }} chmod +x /tmp/wait-node.sh
+    ssh -i ../ci-key rancher@{{ harvester_first_node_ip }} sudo -i /tmp/wait-node.sh harvester-node-{{ node_number }} etcd
+  when: harvester_network_config['cluster'][node_number | int]['etcd_only'] | bool

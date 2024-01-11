@@ -12,10 +12,22 @@
   set_fact:
     harvester_node_ip: "{{ harvester_network_config['cluster'][node_number | int]['ip'] }}"
 
+- name: set Harvester First Node IP fact
+  set_fact:
+    harvester_first_node_ip: "{{ harvester_network_config['cluster'][0]['ip'] }}"
+
 - name: boot Harvester Node {{ node_number }}
   shell: >
     vagrant up harvester-node-{{ node_number }}
   register: harvester_node_boot_result
+
+- name: wait for Harvester Node to ssh
+  shell: >
+    ssh -i ../ci-key rancher@{{ harvester_node_ip }} true
+  register: ssh_result
+  until: ssh_result.rc == 0
+  retries: 40
+  delay: 30
 
 - name: wait for Harvester Node {{ harvester_node_ip }} to get ready
   uri:
@@ -27,3 +39,10 @@
   until: auth_modes_lookup_result.status == 200
   retries: 20
   delay: 120
+  when: not (harvester_network_config['cluster'][node_number | int]['etcd_only'] | bool)
+
+- name: wait for Harvester Node ready (kubelet)
+  shell: |
+    ssh -i ../ci-key rancher@{{ harvester_first_node_ip }} curl http://{{ harvester_network_config['dhcp_server']['ip'] }}/harvester/wait-node.sh -o /tmp/wait-node.sh
+    ssh -i ../ci-key rancher@{{ harvester_first_node_ip }} chmod +x /tmp/wait-node.sh
+    ssh -i ../ci-key rancher@{{ harvester_first_node_ip }} sudo -i /tmp/wait-node.sh harvester-node-{{ node_number }} skip

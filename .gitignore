@@ -1,1 +1,2 @@
 .vagrant*
+/vagrant-pxe-harvester/ci-key*
