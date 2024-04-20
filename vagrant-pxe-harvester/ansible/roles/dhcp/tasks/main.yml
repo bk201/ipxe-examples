@@ -4,6 +4,7 @@
     name: isc-dhcp-server
     state: present
     update_cache: yes
+  when: settings['install_packages']
 
 - name: configure isc-dhcp-server interface
   copy:

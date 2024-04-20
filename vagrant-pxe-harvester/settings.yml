@@ -25,6 +25,12 @@ harvester_rootfs_url: https://releases.rancher.com/harvester/master/harvester-ma
 harvester_cluster_nodes: 3
 
 #
+# general config
+#
+# Install packages in pxe_server or not
+install_packages: false
+
+#
 # network_config
 #
 # Harvester network configurations. Make sure the cluster IPs are on the same
