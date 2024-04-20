@@ -4,6 +4,7 @@
     update_cache: yes
     name: nginx
     state: present
+  when: settings['install_packages']
 
 - name: configure default site
   copy:

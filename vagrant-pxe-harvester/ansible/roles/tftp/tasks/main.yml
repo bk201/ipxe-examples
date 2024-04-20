@@ -3,6 +3,7 @@
   apt:
     name: tftpd-hpa
     state: present
+  when: settings['install_packages']
 
 - name: create tftp root
   file:
