@@ -127,8 +127,7 @@ harvester_config:
 
   # NTP servers
   ntp_servers:
-    - 0.suse.pool.ntp.org
-    - 1.suse.pool.ntp.org
+    - pool.ntp.org
 
 #
 # harvester_node_config
